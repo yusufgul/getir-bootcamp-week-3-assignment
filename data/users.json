@@ -1,0 +1,37 @@
+[
+  {
+    "id": "1",
+    "name": "Yusuf Gul",
+    "email": "yusufgul@gmail.com",
+    "role": "admin",
+    "gender": "male"
+  },
+  {
+    "id": "2",
+    "name": "Nujabes",
+    "email": "nujabes@gmail.com",
+    "role": "user",
+    "gender": "male"
+  },
+  {
+    "id": "3",
+    "name": "Mitis",
+    "email": "mitis@gmail.com",
+    "role": "user",
+    "gender": "male"
+  },
+  {
+    "id": "4",
+    "name": "Yuko Ando",
+    "email": "yukoando@gmail.com",
+    "role": "user",
+    "gender": "female"
+  },
+  {
+    "id": "5",
+    "name": "Paramore",
+    "email": "paramore@gmail.com",
+    "role": "user",
+    "gender": "female"
+  }
+]
