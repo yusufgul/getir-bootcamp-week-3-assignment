@@ -2,6 +2,7 @@ const fs = require("fs");
 
 const books = JSON.parse(fs.readFileSync(`${__dirname}/../data/books.json`));
 
+//check for whether id is valid
 exports.checkID = (req, res, next, val) => {
   if (req.params.id * 1 > books.length) {
     return res.status(404).json({
@@ -12,6 +13,7 @@ exports.checkID = (req, res, next, val) => {
   next();
 };
 
+//check if every information is exist
 exports.checkData = (req, res, next) => {
   if (
     !req.body.name ||
@@ -27,7 +29,7 @@ exports.checkData = (req, res, next) => {
   }
   next();
 };
-
+//list all books
 exports.getAllBooks = (req, res) => {
   res.status(200).json({
     status: "success",
@@ -37,9 +39,8 @@ exports.getAllBooks = (req, res) => {
     },
   });
 };
-
+//list one book from id
 exports.getBook = (req, res) => {
-  console.log(req.params);
   const id = parseInt(req.params.id);
   const book = books.find((el) => el.id === id);
 
@@ -50,25 +51,30 @@ exports.getBook = (req, res) => {
     },
   });
 };
-
+//create a new book
 exports.createBook = (req, res) => {
   const newId = parseInt(books[books.length - 1].id) + 1;
   const newBook = Object.assign({ id: newId }, req.body);
 
   books.push(newBook);
 
-  fs.writeFile(`${__dirname}/data/books.json`, JSON.stringify(books), (err) => {
-    res.status(201).json({
-      status: "success",
-      data: {
-        book: newBook,
-      },
-    });
-  });
+  fs.writeFile(
+    `${__dirname}/../data/books.json`,
+    JSON.stringify(books),
+    (err) => {
+      res.status(201).json({
+        status: "success",
+        data: {
+          book: newBook,
+        },
+      });
+    }
+  );
 };
 
+//update informations of one book
 exports.updateBook = (req, res) => {
-  let dataOrigin = require(`${__dirname}/data/books.json`);
+  let dataOrigin = require(`${__dirname}/../data/books.json`);
   let data = req.body;
   let id = req.params.id - 1;
 
@@ -80,7 +86,7 @@ exports.updateBook = (req, res) => {
     }
   }
   fs.writeFile(
-    `${__dirname}/data/books.json`,
+    `${__dirname}/../data/books.json`,
     JSON.stringify(dataOrigin),
     (err) => {
       res.status(200).json({
@@ -92,14 +98,14 @@ exports.updateBook = (req, res) => {
     }
   );
 };
-
+//delete one book
 exports.deleteBook = (req, res) => {
-  let dataOrigin = require(`${__dirname}/data/books.json`);
+  let dataOrigin = require(`${__dirname}/../data/books.json`);
   let id = req.params.id - 1;
 
   dataOrigin.splice(id, 1);
   fs.writeFile(
-    `${__dirname}/data/books.json`,
+    `${__dirname}/../data/books.json`,
     JSON.stringify(dataOrigin),
     (err) => {
       res.status(200).json({
